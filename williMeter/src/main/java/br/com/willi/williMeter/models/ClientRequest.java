@@ -2,6 +2,7 @@ package br.com.willi.williMeter.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
-public class UserOrder {
+public class ClientRequest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +22,13 @@ public class UserOrder {
 			joinColumns = @JoinColumn(name="userOrder_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products;
+	@DateTimeFormat(pattern	= "dd-MM-yyyy")
 	private Date data;
 	@ManyToOne
 	private Client client;
 	private float value;
 
-	public UserOrder(Client client, List<Product> products) {
+	public ClientRequest(Client client, List<Product> products) {
 		this.products = products;
 		this.data = new Date();
 		this.client = client;

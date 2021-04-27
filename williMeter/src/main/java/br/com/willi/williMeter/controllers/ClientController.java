@@ -11,22 +11,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("clients")
+@RequestMapping("/clients")
 public class ClientController {
 
+	@Autowired
 	private final ClientRepository clientRepository;
-	
-	@PostMapping
+
+
+	@PostMapping("/save")
 	public String save(Client client) {
 		clientRepository.save(client);
-		return "redirect:/registerClient";
-	}	
-	
-	@RequestMapping()
-	public ModelAndView listClients() {
-		ModelAndView mv = new ModelAndView("client/clients");
-		Iterable<Client> clients = clientRepository.findAll();
-		mv.addObject("client", clients);
-		return mv;
+		return "redirect:/listClient";
 	}
+
+
+	@GetMapping("/")
+	public ModelAndView listClients() {
+		Iterable<Client> clients = clientRepository.findAll();
+		return new ModelAndView("client/listClients", "client", clients);
+	}
+
+	@GetMapping("/{id}")
+	public ModelAndView findById(@PathVariable long id) {
+		Client client = clientRepository.findById(id);
+		return new ModelAndView("client/listClient", "client", client);
+	}
+
+	@GetMapping("/register")
+	public String registerClient() {
+		return "client/registerClient";
+	}
+
+
+
 }
