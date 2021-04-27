@@ -1,12 +1,16 @@
 package br.com.willi.williMeter.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import br.com.willi.williMeter.models.Client;
 import br.com.willi.williMeter.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -18,9 +22,9 @@ public class ClientController {
 	private final ClientRepository clientRepository;
 
 	@PostMapping("/save")
-	public String save(Client client) {
-		clientRepository.save(client);
-		return "redirect:/listClient";
+	public ModelAndView save(Client client) {
+		client = clientRepository.save(client);
+          return new ModelAndView("client/listClient", "client", client);
 	}
 
 	@GetMapping("/")

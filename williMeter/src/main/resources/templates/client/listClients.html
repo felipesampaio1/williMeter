@@ -31,7 +31,7 @@
 				<td	colspan="3">Sem	clientes cadastrados</td>
 			<tr th:each="client : ${clients}">
 				<td><span th:text=${client.name}></span></td>
-				<td><span th:text=${client.CPF}></span></td>
+				<td><span th:text=${client.cpf}></span></td>
 				<td><span th:text=${client.address}></span></td>
 				<td><span th:text=${client.phoneNumber}></span></td>
 				<td><span th:text=${client.email}></span></td>
