@@ -17,18 +17,16 @@ public class ClientController {
 	@Autowired
 	private final ClientRepository clientRepository;
 
-
 	@PostMapping("/save")
 	public String save(Client client) {
 		clientRepository.save(client);
 		return "redirect:/listClient";
 	}
 
-
 	@GetMapping("/")
 	public ModelAndView listClients() {
 		Iterable<Client> clients = clientRepository.findAll();
-		return new ModelAndView("client/listClients", "client", clients);
+		return new ModelAndView("client/listClients", "clients", clients);
 	}
 
 	@GetMapping("/{id}")

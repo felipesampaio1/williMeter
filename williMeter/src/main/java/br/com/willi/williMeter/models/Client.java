@@ -1,5 +1,6 @@
 package br.com.willi.williMeter.models;
 
+import br.com.willi.williMeter.util.InsufficientFundsException;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
@@ -14,8 +15,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class Client implements Serializable {
 	
-	//private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
@@ -35,6 +34,13 @@ public class Client implements Serializable {
 	private String phoneNumber;
 	private String tagID;
 	private float balance;
+
+	public void debitBalance(float productPrice) throws InsufficientFundsException {
+		if (balance - productPrice < 0)
+			throw new InsufficientFundsException();
+		this.balance -= productPrice;
+
+	}
 
 	
 }

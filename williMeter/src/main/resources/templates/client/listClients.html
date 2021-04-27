@@ -27,6 +27,8 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr	th:if="${clients.empty}">
+				<td	colspan="3">Sem	clientes cadastrados</td>
 			<tr th:each="client : ${clients}">
 				<td><span th:text=${client.name}></span></td>
 				<td><span th:text=${client.CPF}></span></td>
